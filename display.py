@@ -7,6 +7,11 @@ class Display():
         self.interface = interface
         self.clear = lambda: os.system('clear')
 
+        self.cardinals = [
+            ["","W",""],
+            ["A","","D"],
+            ["","S",""]]
+
     def show_score(self):
         self.show_title("Scoreboard", True)
         for player in self.interface.scoreboard:
@@ -21,17 +26,10 @@ class Display():
 {title}
 -------------------------------------------""")   
 
-    
-    
     def show_cardinals(self):
 
-        cardinals = [
-            ["","W",""],
-            ["A","","D"],
-            ["","S",""]]
-
         self.show_title("Options", False)
-        for r in cardinals:
+        for r in self.cardinals:
             for card in r:
                 if card:     
                     print(f"\t  {card}  ", end="")
