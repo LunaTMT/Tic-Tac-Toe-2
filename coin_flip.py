@@ -14,19 +14,18 @@ class CoinFlip:
         #self.outcome = random.choice(("Tails", "Heads"))
         self.outcome = "Heads"
 
-        self.run()
+        self()
         
 
-    def run(self):
+    def __call__(self):
         if not CoinFlip.initialised:
             self.get_choice()
             self.show_coin_flip()
             self.verify_outcome()
             CoinFlip.initialised = True
-            self.player.sym = CoinFlip.first_symbol
-            
+            self.player.sym = CoinFlip.first_symbol  
         else: 
-            self.player.sym = self.player.get_oppposite_symbol(CoinFlip.first_symbol)
+            self.player.sym = " O " if CoinFlip.first_symbol == " X " else " X "
 
 
     def get_choice(self):

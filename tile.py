@@ -14,3 +14,7 @@ class Tile:
             return "\n\n\t" + result  
         return result
         
+    def reset(self):
+        self.free = True
+        self.sym = "   "
+        self.colour = None

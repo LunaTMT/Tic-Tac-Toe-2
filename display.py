@@ -1,10 +1,12 @@
 import os
 import time
+from coin_flip import CoinFlip
 
 class Display():
 
     def __init__(self, interface) -> None:
         self.interface = interface
+        self.scoreboard = interface.scoreboard
         self.clear = lambda: os.system('clear')
 
         self.cardinals = [
@@ -14,7 +16,7 @@ class Display():
 
     def show_score(self):
         self.show_title("Scoreboard", True)
-        for player in self.interface.scoreboard:
+        for player in self.scoreboard.get_sorted():
             print(player)
         print("-------------------------------------------")
         time.sleep(3)
@@ -25,7 +27,7 @@ class Display():
 -------------------------------------------
 {title}
 -------------------------------------------""")   
-
+ 
     def show_cardinals(self):
 
         self.show_title("Options", False)
@@ -45,4 +47,8 @@ class Display():
             self.show_title("DRAW!")
         else:
             self.show_title(f"{self.interface.board.current_player.name.upper()} WON!")
+
+        self.interface.end = True
+        self.interface.board.reset()
+        CoinFlip.initialised = False
         time.sleep(2)

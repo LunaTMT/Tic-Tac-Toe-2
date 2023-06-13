@@ -15,8 +15,6 @@ class Board():
         self.current_player = ""
         self.total = 0
 
-    
-    
  
     def __str__(self):
         self.display.show_title("Tic Tac Toe!", True)
@@ -155,8 +153,9 @@ class Board():
                 self.highlight_winner(slice)
                 print(self)
                 self.display.show_endgame("WON")
-                self.current_player.score += 1
-                self.interface.won = True
+                self.current_player.update_score()
+                
+                
 
     def highlight_winner(self, slice):
         for r in self:
@@ -165,7 +164,6 @@ class Board():
 
         for tile in slice:
             tile.colour = "light_yellow"
-
     
     def get_slices(self):
         d1 = [self[0,0], self[1,1], self[2,2]]
@@ -178,3 +176,9 @@ class Board():
 
         return slices
 
+    def reset(self):
+        for r in self:
+            for tile in r:
+                tile.reset()    
+
+        self.total = 0
