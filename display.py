@@ -15,6 +15,7 @@ class Display():
             ["","S",""]]
 
     def show_score(self):
+        "Displays scoreboard"
         self.show_title("Scoreboard", True)
         for player in self.scoreboard.get_sorted():
             print(player)
@@ -22,6 +23,7 @@ class Display():
         time.sleep(3)
 
     def show_title(self, title, clear=False):
+        "Displays a title"
         if clear: self.clear()
         print(f"""
 -------------------------------------------
@@ -29,7 +31,7 @@ class Display():
 -------------------------------------------""")   
  
     def show_cardinals(self):
-
+        "Shows the possible cardinal directions the user may traverse"
         self.show_title("Options", False)
         for r in self.cardinals:
             for card in r:
@@ -43,6 +45,7 @@ class Display():
         print("\t     Y - Confirm ")
          
     def show_endgame(self, state): 
+        "Showing who has won or if there has been a draw"
         if state == "DRAW":
             self.show_title("DRAW!")
         else:
@@ -50,5 +53,5 @@ class Display():
 
         self.interface.end = True
         self.interface.board.reset()
-        CoinFlip.initialised = False
+        CoinFlip.run = False
         time.sleep(2)

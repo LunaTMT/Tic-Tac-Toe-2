@@ -30,9 +30,9 @@ class Player():
     
 
 
-    def make_move(self): 
+    def get_move(self): 
         self.board.current_player = self
-        self.board.get_move()
+        self.board.make_move()
 
     def get_name(self):
         self.display.show_title(f"Player {self.id}", True)

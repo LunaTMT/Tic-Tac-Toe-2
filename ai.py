@@ -1,65 +1,62 @@
 from player import Player
+from board import Board
 import random
 
 class Ai(Player):
 
-
-
-    def make_move(self): 
+    def get_move(self): 
+        "This function gets the best posible move and comits it to the board"
+        
+        #Init current player on board
         self.board.current_player = self  
         
-        #beginner level
-        #pos = (random.randint(0, 2), random.randint(0, 2))
+        win, block = self.get_win_or_block_move
+                      
+        if win:                             # - If we have found a winning position        
+            self.board.commit_move(win)
+        elif block:                         # - Is there a position we can block  
+            self.board.commit_move(block)
+        else:                               # - If not find the next best position    
+            position = self.get_best_available_position()
 
-        #while board[pos].free == False:
-        #    pos = (random.randint(0, 2), random.randint(0, 2))
-        
-        #please note that the Ai should always set its position to the center IF it is playing second
+        self.board.commit_move(position)
 
-        #Hard level
-        win = []       
-        block = []
+    def get_win_or_block_move(self):
+        """
+        This function searches if there are any valid:
+            - Winning moves
+            - Blocking moves
+        """
+        win, block = "", ""
 
+        #Must search the whole board to see if there are any winning or blocking positions
         for slices in self.board.slices:
  
             values = [tile.sym for tile in slices]
             positions = [tile.pos for tile in slices]
 
-            #Try to make a winning move
-            #Block a players winning move
-            #Go to try instead sides, corners or center
-            #Respectively
             self_count = values.count(self.sym)
             enemy_count = values.count(self.opposite)
 
-            
             #Ensure winning always takes precedence over blocking
             if (self_count == 2 and enemy_count == 0): 
-                win.append(positions[values.index('   ')])
-                
+                return positions[values.index('   ')], ""
+                   
             elif (self_count == 0 and enemy_count == 2):
-                block.append(positions[values.index('   ')])
-                
-            else:
-                corner = [(0, 0), (0, 2), (2, 0), (2, 2)]
-                center = [(1, 1)]
-                side = [(0, 1), (1, 0), (2, 1), (1, 2)]
+                block = positions[values.index('   ')]
+        return win, block
 
-                random.shuffle(corner)
-                random.shuffle(side)
-
-                for pos in (corner + center + side):
-                    if self.board[pos].free:
-                        pos = pos
-                        break
-    
-        if win:
-            pos = win[0]
-        elif block: 
-            pos = block[0]
+    def get_best_available_position(self):
+        """
+        If this function is called it means that there are no winning or blocking move
+        We now want to find the best posible position available for the Ai"""
         
-        self.board.make_move(pos)
+        random.shuffle(Board.corner)
+        random.shuffle(Board.side)
 
+        for pos in (Board.corner + Board.center + Board.side):
+            if self.board[pos].free:
+                return pos
 
     def get_name(self):
         return "Ai"

@@ -1,24 +1,23 @@
 
-from display import Display
-from menu import Menu
-from board import Board
-from player import Player
-
 from scoreboard import Scoreboard
+from display import Display
+from board import Board
+from menu import Menu
 
 class TTT_Interface():
 
     def __init__(self) -> None:
         self.players    = []
+        self.end        = False
+
         self.scoreboard =  Scoreboard() 
-        self.end = False
-        
         self.display    =   Display(self)
         self.board      =     Board(self)
         self.menu       =      Menu(self)
 
 
     def run(self) -> None:
+        #This function runs the entire program
         while True:
             self.menu()
 
@@ -27,7 +26,7 @@ class TTT_Interface():
                     if self.end: 
                         break
                     else:
-                        player.make_move()
+                        player.get_move()
             
             
          
