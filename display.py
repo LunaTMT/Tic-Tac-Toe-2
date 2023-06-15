@@ -14,7 +14,7 @@ class Display():
             ["A","","D"],
             ["","S",""]]
 
-    def show_score(self):
+    def show_score(self) -> None:
         "Displays scoreboard"
         self.show_title("Scoreboard", True)
         for player in self.scoreboard.get_sorted():
@@ -22,7 +22,7 @@ class Display():
         print("-------------------------------------------")
         time.sleep(3)
 
-    def show_title(self, title, clear=False):
+    def show_title(self, title, clear=False) -> None:
         "Displays a title"
         if clear: self.clear()
         print(f"""
@@ -30,7 +30,7 @@ class Display():
 {title}
 -------------------------------------------""")   
  
-    def show_cardinals(self):
+    def show_cardinals(self) -> None:
         "Shows the possible cardinal directions the user may traverse"
         self.show_title("Options", False)
         for r in self.cardinals:
@@ -44,7 +44,7 @@ class Display():
         print("-------------------------------------------")
         print("\t     Y - Confirm ")
          
-    def show_endgame(self, state): 
+    def show_endgame(self, state) -> None:
         "Showing who has won or if there has been a draw"
         if state == "DRAW":
             self.show_title("DRAW!")

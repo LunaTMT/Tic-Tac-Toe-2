@@ -15,7 +15,7 @@ class CoinFlip:
         
         self()
         
-    def __call__(self):
+    def __call__(self) -> None:
         """If the coinflip not already been run then it will:
         - get the users choice, 
         - show the actual flip, and then 
@@ -34,7 +34,7 @@ class CoinFlip:
             self.player.sym = " O " if CoinFlip.first_symbol == " X " else " X "
 
 
-    def get_choice(self):
+    def get_choice(self) -> None:
         "This function gets the players choice for the coin flip, either: Heads (H) or Tails (T)"
 
         if self.player.name == "Ai":
@@ -46,7 +46,7 @@ class CoinFlip:
                 
             self.guess = "Heads" if self.guess == "H" else "Tails"
 
-    def show_coin_flip(self):
+    def show_coin_flip(self) -> None:
         "Displays the coin flip in a pretty manner"
 
         for i in ["Tails", "Heads"] * 10 + [self.outcome]:
@@ -55,7 +55,7 @@ class CoinFlip:
             time.sleep(0.1)
         print()
 
-    def verify_outcome(self):
+    def verify_outcome(self) -> None:
         "This function verifies the users choice"
 
         if self.guess == self.outcome:

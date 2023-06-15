@@ -17,10 +17,10 @@ class Player():
         CoinFlip(self.display, self)
         self.opposite = self.get_oppposite_symbol()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"| {self.name} : {self.score}"
     
-    def __lt__(self, p2):
+    def __lt__(self, p2) -> bool:
         """
         This dunder method is used in order that the player object be sortable
         The obj is sorted by the ascii value for X and O"""
@@ -28,19 +28,15 @@ class Player():
         # O = 79
         return self.sym < p2.sym
     
-
-
-    def get_move(self): 
+    def get_move(self) -> None:
         self.board.current_player = self
         self.board.make_move()
-
-    def get_name(self):
+    def get_name(self) -> str:
         self.display.show_title(f"Player {self.id}", True)
         return input("Please enter your name: ").title()
-
-    def get_oppposite_symbol(self):
+    def get_oppposite_symbol(self) -> str:
         return " O " if self.sym == " X " else " X "
 
-    def update_score(self):
+    def update_score(self) -> None:
         self.interface.scoreboard[self] += 1
         self.score += 1

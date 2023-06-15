@@ -9,7 +9,7 @@ class Board():
     center  = [(1, 1)]
     side    = [(0, 1), (1, 0), (2, 1), (1, 2)]
 
-    def __init__(self, interface) -> None:
+    def __init__(self, interface):
         self.interface  = interface
         self.display    = interface.display
 
@@ -22,20 +22,18 @@ class Board():
         self.total = 0
         
 
-    def __str__(self):
+    def __str__(self) -> str:
         "Used to display the board"
         self.display.show_title("Tic Tac Toe!", True)
         return " ".join([tile.__str__() for row in self.board for tile in row])
-
-    def __getitem__(self, position):
+    def __getitem__(self, position) -> Tile:
         #Dunder method used to make reference to numpy array clearer
         return self.board[position]  
-    
-    def __setitem__(self, position, value):
+    def __setitem__(self, position, value) -> None:
         #Dunder method used to make setting values in numpy array clearer
         self.board[position] = value 
 
-    def highlight_winner(self, slice):
+    def highlight_winner(self, slice) -> None:
         "This function highlights all pieces that are the winning one and sets the rest to white"
         for r in self:
             for tile in r:
@@ -43,7 +41,7 @@ class Board():
 
         for tile in slice:
             tile.colour = "light_yellow"                      
-    def colour_update(self, current, new=False):
+    def colour_update(self, current, new=False) -> None:
         "This function updates the colours and symbols for the currently selected tile and the newly selected one"
 
         if current and not new:
@@ -67,10 +65,10 @@ class Board():
             #If The user is trying to choose a taken square we do not want to update any colours
             pass  
             
-    def show_moves(self):
+    def show_moves(self) -> None:
         print(self)
         self.display.show_cardinals() 
-    def make_move(self):
+    def make_move(self) -> None:
         """
         This function is the whole moving process across the board. 
         The user is shown each updated position depending on where they want to go.
@@ -98,7 +96,7 @@ class Board():
             
         #comit the move once chosen
         self.commit_move(current)   
-    def commit_move(self, position):
+    def commit_move(self, position) -> None:
         """
         This function sets the current position on the board to being owned by a given player
         thus making it inacessible to the other player."""
@@ -110,14 +108,14 @@ class Board():
 
         self.check_winner()
 
-    def check_boundary(self, position):
+    def check_boundary(self, position) -> tuple: 
         "This function verifys if the given position actually exists"
         try: 
             self[position]
             return position
         except:
             return False
-    def check_winner(self):
+    def check_winner(self) -> None:
         #This function checks if anyone has won
         if self.total == 9:
             self.display.show_endgame("DRAW")
@@ -131,13 +129,13 @@ class Board():
                 self.display.show_endgame("WON")
                 self.current_player.update_score()
                 
-    def get_choice(self):
+    def get_choice(self) -> str:
         "This functions gets the cardinal direction the player wishes to move"
         choice = ""
         while choice not in ("Y", "W", "A", "S", "D"):
                 choice = input(f"\t   {self.current_player.name}'s choice : ").upper()  
         return choice
-    def get_slices(self):
+    def get_slices(self) -> list:
         """This function returns a list of lists
         The lists contained within are the diagnoals and all rows and columns
         """
@@ -150,7 +148,7 @@ class Board():
             slices.append(self[i, :])
 
         return slices
-    def get_new_pos(self, current, choice):
+    def get_new_pos(self, current, choice) -> tuple:
         """
         This function returns a new position based upon the cardinal choice, 
         it also verifies if it is an actual value on the board"""
@@ -170,14 +168,14 @@ class Board():
                 new = current
         
         return new if new else current
-    def get_next_available_position(self):
+    def get_next_available_position(self)  -> tuple:
         "This function finds the first available position in the board that is free"
         for row in self:
             for tile in row:
                 if tile.free == True:
                     return tile.pos
 
-    def reset(self):
+    def reset(self) -> None:
         #This resets each tile on the board to its default state and changes total to 0 as nothing is now on the board
         for r in self:
             for tile in r:

@@ -4,24 +4,25 @@ import random
 
 class Ai(Player):
 
-    def get_move(self): 
+    def get_move(self) -> None:
         "This function gets the best posible move and comits it to the board"
         
         #Init current player on board
         self.board.current_player = self  
         
-        win, block = self.get_win_or_block_move
+        win, block = self.get_win_or_block_move()
                       
         if win:                             # - If we have found a winning position        
             self.board.commit_move(win)
+            return
         elif block:                         # - Is there a position we can block  
             self.board.commit_move(block)
+            return
         else:                               # - If not find the next best position    
             position = self.get_best_available_position()
+            self.board.commit_move(position)
 
-        self.board.commit_move(position)
-
-    def get_win_or_block_move(self):
+    def get_win_or_block_move(self) -> str:
         """
         This function searches if there are any valid:
             - Winning moves
@@ -46,7 +47,7 @@ class Ai(Player):
                 block = positions[values.index('   ')]
         return win, block
 
-    def get_best_available_position(self):
+    def get_best_available_position(self) -> tuple:
         """
         If this function is called it means that there are no winning or blocking move
         We now want to find the best posible position available for the Ai"""
@@ -58,5 +59,5 @@ class Ai(Player):
             if self.board[pos].free:
                 return pos
 
-    def get_name(self):
+    def get_name(self) -> str:
         return "Ai"

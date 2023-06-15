@@ -6,7 +6,7 @@ from menu import Menu
 
 class TTT_Interface():
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.players    = []
         self.end        = False
 

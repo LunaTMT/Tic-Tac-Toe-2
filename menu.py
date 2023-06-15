@@ -15,7 +15,7 @@ class Menu:
         self.exit = False
         
 
-    def __str__(self):
+    def __str__(self) -> str:
         """This dunder returns the menu as a str
         The 5th option will only display when there has already been an instance of people playing (i.e. players exist)
         """
@@ -32,7 +32,6 @@ class Menu:
         4: Quit
         {f'5: Play again? ({" ".join(player.name for player in self.interface.players)})' if self.interface.players else ""}
         """  
-    
     def __call__(self) -> None:
         #Running process of menu
         self.interface.end = False #So the game can start again
@@ -40,8 +39,7 @@ class Menu:
         self.choice = input("\tChoice : ")
         self.execute_choice()
 
-        
-    def execute_choice(self):
+    def execute_choice(self) -> None:
         """
         This function executes the chosen menu option by the player
         
